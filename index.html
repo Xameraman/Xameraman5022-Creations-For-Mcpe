@@ -1,5 +1,5 @@
 <html>
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -33,11 +33,11 @@ body {
 
 .site-wrap{position:relative;z-index:2;}
 
-/* TOP-RIGHT BUTTONS */
-.top-actions{position:absolute;top:18px;right:20px;z-index:10;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.top-guides-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;font-family:'Press Start 2P',monospace;font-size:7px;padding:8px 14px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;border:2px solid #FF8C00;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 14px rgba(255,215,0,0.4);white-space:nowrap;}
-.top-guides-btn:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.7);}
-.top-guides-btn span{font-size:13px;}
+/* ── FLOATING GUIDES BUTTON (follows on scroll) ── */
+.top-actions{position:fixed;top:18px;right:20px;z-index:99997;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.top-guides-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;font-family:'Press Start 2P',monospace;font-size:7.5px;padding:9px 15px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;border:2px solid #FF8C00;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 16px rgba(255,215,0,0.45);white-space:nowrap;}
+.top-guides-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(255,215,0,0.75);}
+.top-guides-btn span{font-size:14px;}
 
 /* HERO */
 .hero{background:linear-gradient(180deg,#87CEEB 0%,#5BADD4 36%,#5D9E31 36%,#4A7E26 52%,#8B6340 52%,#6B4C2A 100%);padding:36px 20px 24px;text-align:center;border-bottom:6px solid var(--darkgrass);position:relative;overflow:hidden;}
@@ -87,7 +87,7 @@ body {
 .footer-sub{font-size:10px;color:#7A8A9A;letter-spacing:1px;}
 .footer-sub span{color:#FF6B6B;}
 
-@media(max-width:700px){.packs-grid{grid-template-columns:1fr;}.top-actions{top:10px;right:10px;gap:6px;}.top-guides-btn{font-size:6px;padding:6px 10px;}}
+@media(max-width:700px){.packs-grid{grid-template-columns:1fr;}.top-actions{top:10px;right:10px;gap:6px;}.top-guides-btn{font-size:6.5px;padding:7px 11px;}}
 
 /* ── MIA WIDGET CSS ── */
 #mia-widget-btn{position:fixed;bottom:24px;right:24px;z-index:99999;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#9B4FDB,#5865F2);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(155,79,219,0.5);display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;transition:transform .2s,box-shadow .2s;animation:mia-pulse-ring 2.5s ease-in-out infinite;}
@@ -136,7 +136,7 @@ body {
 
 <div class="site-wrap">
 
-<!-- TOP-RIGHT BUTTONS -->
+<!-- FLOATING GUIDES BUTTON (follows on scroll) -->
 <div class="top-actions">
   <a href="https://xameraman.github.io/All-Mia-Guides/" class="top-guides-btn"><span>📚</span> GUIDES</a>
 </div>
@@ -151,7 +151,7 @@ body {
   </div>
   <div class="badge">🎨 TEXTURE PACKS</div>
   <h1>XAMERAMAN5022<br>PORTFOLIO</h1>
-  <p class="hero-sub">Minecraft Bedrock · Pure JSON · Survival Balanced · No Mods</p>
+  <p class="hero-sub">Minecraft Bedrock · Xameraman5022 · Creations · </p>
 </div>
 
 <!-- PORTFOLIO -->
@@ -165,7 +165,7 @@ body {
       <div class="pack-body">
         <div class="pack-name">🌫️ FogBreaker Bundle</div>
         <div class="pack-stats">
-          <span>📅 May 23, 2026</span><span>📥 627+</span><span>⚡ Pure JSON</span>
+          <span>📅 May 23, 2026</span><span>⚡ Pure JSON</span>
         </div>
         <div class="pack-desc">
           3 modes via in‑game slider. <strong>Water Only</strong> for clear oceans, <strong>Lava X‑Ray</strong> with Fire Resistance potion, or <strong>Both</strong>. Zero PNGs, zero mods — pure JSON only.
@@ -183,7 +183,7 @@ body {
       <div class="pack-body">
         <div class="pack-name">🔥 No Lava Fog: Fire Resistance Edition</div>
         <div class="pack-stats">
-          <span>📅 May 22, 2026</span><span>📥 395+</span><span>⚡ Pure JSON</span>
+          <span>📅 May 22, 2026</span><span>⚡ Pure JSON</span>
         </div>
         <div class="pack-desc">
           Removes blinding orange fog when submerged in lava — spot <strong>Ancient Debris</strong>, map lava lakes, and traverse the Nether with crystal‑clear vision. Works with Fire Resistance potion.
@@ -197,11 +197,11 @@ body {
 
     <!-- PACK 3: Balanced Clear Ocean -->
     <div class="pack-card">
-      <img src="https://media.forgecdn.net/attachments/1691/222/1000000443-png.png" alt="Balanced Clear Ocean" class="pack-image" onerror="this.style.display='none'">
+      <img src="https://media.forgecdn.net/attachments/1691/958/1000000494-jpg.jpg" alt="Balanced Clear Ocean" class="pack-image" onerror="this.style.display='none'">
       <div class="pack-body">
         <div class="pack-name">🌊 Balanced Clear Ocean</div>
         <div class="pack-stats">
-          <span>📅 May 21, 2026</span><span>📥 232+</span><span>⚡ Pure JSON</span>
+          <span>📅 May 21, 2026</span><span>⚡ Pure JSON</span>
         </div>
         <div class="pack-desc">
           <strong>60% surface clarity</strong> — see the ocean floor from your boat. Pushed‑back underwater fog with realistic 20% depth haze. Vibrant tropical lighting replaces gloomy deep‑sea gray.
