@@ -1,0 +1,339 @@
+<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<title>Xameraman5022 — Texture Pack Portfolio | MIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grass:#5D9E31; --darkgrass:#3A5F1E; --deepsky:#3A8FC7;
+  --dark:#080E1A; --panel:#141E2E; --card:#1A2435;
+  --light:#F0EBD8; --accent:#FFD700; --warn:#FF6B35;
+  --tip:#47C96B; --sand:#F5D67A; --mia:#5D9E31;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body {
+  background:var(--dark);
+  font-family:'Nunito',sans-serif;
+  color:var(--light);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+.ground{position:fixed;bottom:0;left:0;right:0;z-index:1;pointer-events:none;}
+.ground-grass{height:20px;background:repeating-linear-gradient(90deg,#5D9E31 0,#5D9E31 15px,#4A8525 15px,#4A8525 30px,#6BAF38 30px,#6BAF38 45px,#4A8525 45px,#4A8525 60px);border-top:3px solid #8FD44A;}
+.ground-dirt{height:14px;background:repeating-linear-gradient(90deg,#8B6340 0,#8B6340 15px,#7A5530 15px,#7A5530 30px,#9A7050 30px,#9A7050 45px,#7A5530 45px,#7A5530 60px);}
+
+.site-wrap{position:relative;z-index:2;}
+
+/* TOP-RIGHT BUTTONS */
+.top-actions{position:absolute;top:18px;right:20px;z-index:10;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.top-guides-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;font-family:'Press Start 2P',monospace;font-size:7px;padding:8px 14px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;border:2px solid #FF8C00;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 14px rgba(255,215,0,0.4);white-space:nowrap;}
+.top-guides-btn:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.7);}
+.top-guides-btn span{font-size:13px;}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,#87CEEB 0%,#5BADD4 36%,#5D9E31 36%,#4A7E26 52%,#8B6340 52%,#6B4C2A 100%);padding:36px 20px 24px;text-align:center;border-bottom:6px solid var(--darkgrass);position:relative;overflow:hidden;}
+.hero-clouds{position:absolute;top:0;left:0;right:0;bottom:50%;pointer-events:none;}
+.hcloud{position:absolute;background:rgba(255,255,255,0.86);border-radius:3px;animation:cloudDrift linear infinite;}
+.hcloud::before{content:'';position:absolute;background:rgba(255,255,255,0.86);border-radius:3px;width:55%;height:120%;top:-60%;left:14%;box-shadow:26px 0 0 rgba(255,255,255,0.86);}
+@keyframes cloudDrift{from{transform:translateX(-150px)}to{transform:translateX(110vw)}}
+.hero .badge{display:inline-block;background:rgba(0,0,0,0.55);border:2px solid var(--accent);padding:4px 16px;font-family:'Press Start 2P',monospace;font-size:7px;color:var(--accent);letter-spacing:2px;margin-bottom:10px;position:relative;z-index:1;box-shadow:0 0 18px rgba(255,215,0,0.15);}
+.hero h1{font-family:'Press Start 2P',monospace;font-size:clamp(12px,2.8vw,20px);color:#fff;text-shadow:3px 3px 0 #000,0 0 30px rgba(255,255,255,0.15);line-height:1.7;position:relative;z-index:1;}
+.hero-sub{font-size:13px;color:var(--sand);font-weight:700;margin-top:6px;position:relative;z-index:1;}
+
+/* PORTFOLIO WRAP */
+.portfolio-wrap{max-width:1100px;margin:24px auto 40px;padding:0 18px;z-index:2;position:relative;}
+
+/* SECTION HEADING */
+.section-title{text-align:center;font-family:'Press Start 2P',monospace;font-size:8px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.section-title::before,.section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+
+/* PACK CARDS GRID */
+.packs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+
+/* PACK CARD */
+.pack-card{background:rgba(20,30,46,0.85);backdrop-filter:blur(12px);border-radius:16px;overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,0.4),0 0 20px rgba(93,158,49,0.08);border:1px solid rgba(93,158,49,0.15);transition:transform 0.28s,box-shadow 0.28s;display:flex;flex-direction:column;}
+.pack-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.5),0 0 30px rgba(93,158,49,0.2);border-color:rgba(93,158,49,0.4);}
+.pack-image{width:100%;height:200px;object-fit:cover;border-bottom:2px solid rgba(93,158,49,0.2);background:rgba(0,0,0,0.3);}
+.pack-body{padding:18px;flex:1;display:flex;flex-direction:column;}
+.pack-name{font-size:16px;font-weight:900;color:#fff;margin-bottom:6px;line-height:1.3;}
+.pack-stats{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:10px;display:flex;gap:14px;flex-wrap:wrap;}
+.pack-stats span{display:flex;align-items:center;gap:4px;}
+.pack-desc{font-size:12.5px;line-height:1.6;color:#C8D8E0;margin-bottom:14px;flex:1;}
+.pack-desc strong{color:var(--accent);}
+
+/* DOWNLOAD BUTTONS */
+.pack-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;}
+.dl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;font-size:12px;font-weight:800;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;font-family:'Nunito',sans-serif;white-space:nowrap;}
+.dl-btn:hover{transform:translateY(-2px);}
+.dl-cf{background:linear-gradient(135deg,#F16436,#E04A28);color:#fff;border:2px solid rgba(255,255,255,0.2);box-shadow:0 3px 14px rgba(241,100,54,0.3);}
+.dl-cf:hover{box-shadow:0 6px 20px rgba(241,100,54,0.5);}
+.dl-mcpedl{background:linear-gradient(135deg,#4CAF50,#388E3C);color:#fff;border:2px solid rgba(255,255,255,0.2);box-shadow:0 3px 14px rgba(76,175,80,0.3);}
+.dl-mcpedl:hover{box-shadow:0 6px 20px rgba(76,175,80,0.5);}
+.dl-icon{font-size:15px;flex-shrink:0;}
+
+/* FOOTER */
+.footer{text-align:center;margin-top:24px;padding:0 18px 30px;}
+.footer-inner{background:rgba(0,0,0,0.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 22px;display:inline-block;min-width:260px;box-shadow:0 8px 20px rgba(0,0,0,0.5);}
+.footer-logo{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--mia);letter-spacing:2px;margin-bottom:6px;text-shadow:0 0 12px rgba(93,158,49,0.5);}
+.footer-sub{font-size:10px;color:#7A8A9A;letter-spacing:1px;}
+.footer-sub span{color:#FF6B6B;}
+
+@media(max-width:700px){.packs-grid{grid-template-columns:1fr;}.top-actions{top:10px;right:10px;gap:6px;}.top-guides-btn{font-size:6px;padding:6px 10px;}}
+
+/* ── MIA WIDGET CSS ── */
+#mia-widget-btn{position:fixed;bottom:24px;right:24px;z-index:99999;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#9B4FDB,#5865F2);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(155,79,219,0.5);display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;transition:transform .2s,box-shadow .2s;animation:mia-pulse-ring 2.5s ease-in-out infinite;}
+@keyframes mia-pulse-ring{0%,100%{box-shadow:0 4px 20px rgba(155,79,219,0.5);}50%{box-shadow:0 4px 32px rgba(155,79,219,0.9),0 0 0 8px rgba(155,79,219,0.15);}}
+#mia-widget-btn:hover{transform:scale(1.1);}
+#mia-widget-panel{position:fixed;bottom:94px;right:24px;z-index:99998;width:340px;max-width:calc(100vw - 48px);background:rgba(12,18,32,0.97);border:1.5px solid rgba(155,79,219,0.4);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,0.6),0 0 30px rgba(155,79,219,0.15);display:flex;flex-direction:column;transform:scale(0.9) translateY(16px);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(.4,0,.2,1);overflow:hidden;max-height:520px;}
+#mia-widget-panel.mia-open{transform:scale(1) translateY(0);opacity:1;pointer-events:all;}
+#mia-panel-header{background:linear-gradient(135deg,rgba(155,79,219,0.25),rgba(88,101,242,0.2));padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
+#mia-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 12px rgba(155,79,219,0.5);}
+#mia-avatar img{width:100%;height:100%;object-fit:cover;}
+#mia-panel-title{font-weight:900;font-size:14px;color:#fff;line-height:1.2;}
+#mia-panel-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;}
+#mia-online-dot{width:8px;height:8px;border-radius:50%;background:#47C96B;margin-left:auto;flex-shrink:0;box-shadow:0 0 6px #47C96B;animation:mia-blink 2s ease-in-out infinite;}
+@keyframes mia-blink{0%,100%{opacity:1}50%{opacity:0.4}}
+#mia-messages{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:10px;font-family:'Nunito',sans-serif;scrollbar-width:thin;scrollbar-color:rgba(155,79,219,0.3) transparent;}
+#mia-messages::-webkit-scrollbar{width:4px;}
+#mia-messages::-webkit-scrollbar-track{background:transparent;}
+#mia-messages::-webkit-scrollbar-thumb{background:rgba(155,79,219,0.3);border-radius:2px;}
+.mia-msg{max-width:85%;padding:10px 13px;border-radius:12px;font-size:13.5px;line-height:1.65;animation:mia-pop .2s ease;word-break:break-word;}
+@keyframes mia-pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.mia-msg.user{align-self:flex-end;background:linear-gradient(135deg,#9B4FDB,#5865F2);color:#fff;border-bottom-right-radius:4px;}
+.mia-msg.bot{align-self:flex-start;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:#E0EAF0;border-bottom-left-radius:4px;}
+.mia-msg.bot strong{color:#FFD700;}
+.mia-msg.bot em{color:#47C96B;font-style:normal;}
+.mia-msg.bot code{background:rgba(0,0,0,0.4);padding:1px 5px;border-radius:3px;font-size:12px;color:#FFD700;}
+.mia-typing{align-self:flex-start;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;border-bottom-left-radius:4px;padding:10px 14px;display:flex;gap:5px;align-items:center;}
+.mia-dot{width:7px;height:7px;border-radius:50%;background:rgba(155,79,219,0.8);animation:mia-bounce .9s ease-in-out infinite;}
+.mia-dot:nth-child(2){animation-delay:.15s;}
+.mia-dot:nth-child(3){animation-delay:.3s;}
+@keyframes mia-bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+#mia-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.2);flex-shrink:0;}
+#mia-input{flex:1;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:9px 13px;color:#fff;font-size:13px;font-family:'Nunito',sans-serif;outline:none;resize:none;max-height:80px;overflow-y:auto;transition:border-color .2s;}
+#mia-input:focus{border-color:rgba(155,79,219,0.6);}
+#mia-input::placeholder{color:rgba(255,255,255,0.3);}
+#mia-input:disabled{opacity:0.5;cursor:not-allowed;}
+#mia-send{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#9B4FDB,#5865F2);border:none;cursor:pointer;color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;flex-shrink:0;align-self:flex-end;}
+#mia-send:hover:not(:disabled){transform:scale(1.08);}
+#mia-send:disabled{opacity:0.4;cursor:not-allowed;}
+#mia-footer-note{text-align:center;font-size:10px;color:rgba(255,255,255,0.2);padding:4px 0 8px;font-family:'Nunito',sans-serif;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="ground"><div class="ground-grass"></div><div class="ground-dirt"></div></div>
+
+<div class="site-wrap">
+
+<!-- TOP-RIGHT BUTTONS -->
+<div class="top-actions">
+  <a href="https://xameraman.github.io/All-Mia-Guides/" class="top-guides-btn"><span>📚</span> GUIDES</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-clouds">
+    <div class="hcloud" style="width:72px;height:18px;top:16px;left:6%;animation-duration:34s;animation-delay:-4s;"></div>
+    <div class="hcloud" style="width:52px;height:14px;top:10px;left:30%;animation-duration:26s;animation-delay:-14s;"></div>
+    <div class="hcloud" style="width:85px;height:20px;top:22px;left:55%;animation-duration:40s;animation-delay:-8s;"></div>
+    <div class="hcloud" style="width:58px;height:15px;top:8px;left:78%;animation-duration:30s;animation-delay:-20s;"></div>
+  </div>
+  <div class="badge">🎨 TEXTURE PACKS</div>
+  <h1>XAMERAMAN5022<br>PORTFOLIO</h1>
+  <p class="hero-sub">Minecraft Bedrock · Pure JSON · Survival Balanced · No Mods</p>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="portfolio-wrap">
+  <div class="section-title">━━ FEATURED PACKS ━━</div>
+  <div class="packs-grid">
+
+    <!-- PACK 1: FogBreaker Bundle -->
+    <div class="pack-card">
+      <img src="https://media.forgecdn.net/attachments/1694/977/1000000547-jpg.jpg" alt="FogBreaker Bundle" class="pack-image" onerror="this.style.display='none'">
+      <div class="pack-body">
+        <div class="pack-name">🌫️ FogBreaker Bundle</div>
+        <div class="pack-stats">
+          <span>📅 May 23, 2026</span><span>📥 627+</span><span>⚡ Pure JSON</span>
+        </div>
+        <div class="pack-desc">
+          3 modes via in‑game slider. <strong>Water Only</strong> for clear oceans, <strong>Lava X‑Ray</strong> with Fire Resistance potion, or <strong>Both</strong>. Zero PNGs, zero mods — pure JSON only.
+        </div>
+        <div class="pack-links">
+          <a href="https://www.curseforge.com/minecraft-bedrock/texture-packs/fogbreaker-bundle" target="_blank" rel="noopener" class="dl-btn dl-cf"><span class="dl-icon">🔥</span> CurseForge</a>
+          <a href="https://mcpedl.com/fogbreaker-bundle/" target="_blank" rel="noopener" class="dl-btn dl-mcpedl"><span class="dl-icon">📱</span> MCPEDL</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 2: No Lava Fog -->
+    <div class="pack-card">
+      <img src="https://media.forgecdn.net/attachments/1692/817/1000000530-jpg.jpg" alt="No Lava Fog" class="pack-image" onerror="this.style.display='none'">
+      <div class="pack-body">
+        <div class="pack-name">🔥 No Lava Fog: Fire Resistance Edition</div>
+        <div class="pack-stats">
+          <span>📅 May 22, 2026</span><span>📥 395+</span><span>⚡ Pure JSON</span>
+        </div>
+        <div class="pack-desc">
+          Removes blinding orange fog when submerged in lava — spot <strong>Ancient Debris</strong>, map lava lakes, and traverse the Nether with crystal‑clear vision. Works with Fire Resistance potion.
+        </div>
+        <div class="pack-links">
+          <a href="https://www.curseforge.com/minecraft-bedrock/texture-packs/no-lava-fog-fire-resistance-edition" target="_blank" rel="noopener" class="dl-btn dl-cf"><span class="dl-icon">🔥</span> CurseForge</a>
+          <a href="https://mcpedl.com/no-lava-fog-fire-resistance-edition/" target="_blank" rel="noopener" class="dl-btn dl-mcpedl"><span class="dl-icon">📱</span> MCPEDL</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 3: Balanced Clear Ocean -->
+    <div class="pack-card">
+      <img src="https://media.forgecdn.net/attachments/1691/222/1000000443-png.png" alt="Balanced Clear Ocean" class="pack-image" onerror="this.style.display='none'">
+      <div class="pack-body">
+        <div class="pack-name">🌊 Balanced Clear Ocean</div>
+        <div class="pack-stats">
+          <span>📅 May 21, 2026</span><span>📥 232+</span><span>⚡ Pure JSON</span>
+        </div>
+        <div class="pack-desc">
+          <strong>60% surface clarity</strong> — see the ocean floor from your boat. Pushed‑back underwater fog with realistic 20% depth haze. Vibrant tropical lighting replaces gloomy deep‑sea gray.
+        </div>
+        <div class="pack-links">
+          <a href="https://www.curseforge.com/minecraft-bedrock/texture-packs/balanced-clear-ocean" target="_blank" rel="noopener" class="dl-btn dl-cf"><span class="dl-icon">🔥</span> CurseForge</a>
+          <a href="https://mcpedl.com/balanced-clear-ocean/" target="_blank" rel="noopener" class="dl-btn dl-mcpedl"><span class="dl-icon">📱</span> MCPEDL</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /packs-grid -->
+</div><!-- /portfolio-wrap -->
+
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="mia-icon.png" alt="MIA" style="width:18px;height:18px;vertical-align:middle;border-radius:4px;margin-right:4px;">
+      MIA — MINECRAFT ITEMS ACCELERATED
+    </div>
+    <div class="footer-sub">ALWAYS CREDIT ORIGINAL PACK CREATORS <span>❤️</span></div>
+  </div>
+</div>
+
+</div>
+
+<!-- ══════════════════ MIA ASSISTANT WIDGET ══════════════════ -->
+<button id="mia-widget-btn" title="Chat with MIA Assistant">🤖</button>
+<div id="mia-widget-panel">
+  <div id="mia-panel-header">
+    <div id="mia-avatar">
+      <img src="mia-icon.png" alt="MIA">
+    </div>
+    <div>
+      <div id="mia-panel-title">MIA Assistant</div>
+      <div id="mia-panel-sub">Minecraft Items Accelerated</div>
+    </div>
+    <div id="mia-online-dot"></div>
+  </div>
+  <div id="mia-messages">
+    <div class="mia-msg bot">Hey! 👋 I'm <strong>MIA Assistant</strong>. Ask me about <em>Xameraman5022's texture packs</em>, MIA, or anything Minecraft!</div>
+  </div>
+  <!-- Cloudflare Turnstile -->
+  <div id="mia-captcha-wrap" style="padding:12px;display:none;text-align:center;">
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAADQ644b2jjSd7BsB" data-callback="onCaptchaSuccess" data-theme="dark" data-size="flexible" style="max-width:300px;margin:0 auto;"></div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-top:6px;font-family:sans-serif;">Verify you're human to start chatting</div>
+  </div>
+  <div id="mia-input-row">
+    <textarea id="mia-input" placeholder="Ask me anything..." rows="1"></textarea>
+    <button id="mia-send">➤</button>
+  </div>
+  <div id="mia-footer-note">MIA Assistance</div>
+</div>
+
+<script>
+/* ─── Animated canvas background ─── */
+(function(){
+  const c=document.getElementById('bg-canvas');
+  const x=c.getContext('2d');
+  let W,H;
+  function R(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  R();window.addEventListener('resize',R);
+  const S=[];for(let i=0;i<160;i++)S.push({x:Math.random(),y:Math.random()*.85,r:Math.random()*1.4+.3,a:Math.random(),sp:.003+Math.random()*.006,ph:Math.random()*Math.PI*2});
+  const OC=['rgba(93,158,49,','rgba(71,201,107,','rgba(198,120,255,','rgba(255,215,0,','rgba(88,101,242,'];
+  const O=[];for(let i=0;i<7;i++)O.push({x:Math.random(),y:Math.random(),r:60+Math.random()*120,co:OC[Math.floor(Math.random()*OC.length)],vx:(Math.random()-.5)*.00015,vy:(Math.random()-.5)*.00015,a:.04+Math.random()*.05});
+  const PC=['#5D9E31','#7DC940','#FFD700','#47C96B','#C678FF','#fff','#5865F2'];
+  const P=[];function sp(){return{x:Math.random(),y:1.05,s:3+Math.random()*5,co:PC[Math.floor(Math.random()*7)],vx:(Math.random()-.5)*.0004,vy:-(.0004+Math.random()*.0008),a:0,mA:.4+Math.random()*.35,ro:Math.random()*360,rv:(Math.random()-.5)*1.2};}
+  for(let i=0;i<28;i++)P.push(sp());
+  let SH=[];setInterval(()=>SH.push({x:Math.random()*.6,y:Math.random()*.4,len:80+Math.random()*140,sp:.006+Math.random()*.008,pro:0,a:.7+Math.random()*.3,ang:Math.PI/5+(Math.random()-.5)*.3}),3200);
+  let t=0;
+  function D(){
+    x.clearRect(0,0,W,H);
+    const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#06091A');g.addColorStop(.5,'#0A1628');g.addColorStop(1,'#0D2040');
+    x.fillStyle=g;x.fillRect(0,0,W,H);
+    for(const o of O){o.x+=o.vx;o.y+=o.vy;if(o.x<-.1)o.x=1.1;if(o.x>1.1)o.x=-.1;if(o.y<-.1)o.y=1.1;if(o.y>1.1)o.y=-.1;
+      const rg=x.createRadialGradient(o.x*W,o.y*H,0,o.x*W,o.y*H,o.r);rg.addColorStop(0,o.co+o.a+')');rg.addColorStop(1,o.co+'0)');
+      x.fillStyle=rg;x.beginPath();x.arc(o.x*W,o.y*H,o.r,0,Math.PI*2);x.fill();}
+    for(const s of S){const p=.4+.6*(.5+.5*Math.sin(t*s.sp+s.ph));x.globalAlpha=s.a*p;x.fillStyle='#fff';x.beginPath();x.arc(s.x*W,s.y*H,s.r*(.8+.3*p),0,Math.PI*2);x.fill();}x.globalAlpha=1;
+    SH=SH.filter(s=>s.pro<1.3);
+    for(const s of SH){s.pro+=s.sp;const sx=s.x*W+Math.cos(s.ang)*s.pro*s.len*3,sy=s.y*H+Math.sin(s.ang)*s.pro*s.len*3;const ex=sx-Math.cos(s.ang)*s.len,ey=sy-Math.sin(s.ang)*s.len;const f=s.pro>.8?1-(s.pro-.8)/.5:1;const lg=x.createLinearGradient(ex,ey,sx,sy);lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(1,`rgba(255,255,255,${s.a*f})`);x.strokeStyle=lg;x.lineWidth=1.5;x.globalAlpha=f;x.beginPath();x.moveTo(ex,ey);x.lineTo(sx,sy);x.stroke();x.globalAlpha=1;}
+    for(let i=0;i<P.length;i++){const p=P[i];p.x+=p.vx;p.y+=p.vy;p.ro+=p.rv;p.a=Math.min(p.mA,p.a+.008);if(p.y<-.05){P[i]=sp();continue;}x.save();x.translate(p.x*W,p.y*H);x.rotate(p.ro*Math.PI/180);x.globalAlpha=p.a;x.fillStyle=p.co;x.fillRect(-p.s/2,-p.s/2,p.s,p.s);x.restore();}x.globalAlpha=1;t+=.6;requestAnimationFrame(D);}
+  D();
+})();
+</script>
+<!-- ══════════════════ MIA WIDGET JS ══════════════════ -->
+<script>
+(function () {
+  const API_URL='https://xameraman5022-mia-assistant.hf.space/chat';
+  const STATUS_URL='https://xameraman5022-mia-assistant.hf.space/status';
+  const SOURCE='general';
+  let token=localStorage.getItem('mia_token');
+  if(!token){token=crypto.randomUUID();localStorage.setItem('mia_token',token);}
+  const fingerprint=navigator.userAgent+"_"+screen.width+"x"+screen.height+"_"+Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const HEADERS={'Content-Type':'application/json','x-user-token':token,'x-user-fp':fingerprint};
+  let captchaVerified=sessionStorage.getItem('mia_captcha')==='yes';
+  let captchaToken=null;
+  window.onCaptchaSuccess=function(cfToken){captchaToken=cfToken;captchaVerified=true;sessionStorage.setItem('mia_captcha','yes');const cw=document.getElementById('mia-captcha-wrap');const ir=document.getElementById('mia-input-row');if(cw)cw.style.display='none';if(ir)ir.style.display='flex';const f=document.getElementById('mia-footer-note');if(f)f.textContent='MIA AI • Powered by MIA Official';const inp=document.getElementById('mia-input');if(inp)inp.focus();};
+  const BAD_WORDS=["fuck","f*ck","fck","fuk","fuq","fvck","shit","sh1t","sh*t","sht","bitch","b*tch","btch","biatch","bastard","cunt","c*nt","dick","d*ck","cock","c*ck","pussy","p*ssy","piss","p*ss","whore","wh*re","slut","sl*t","retard","retarded","i will kill","i'll kill","gonna kill","i hate you","hate you","shut up","stfu","go die","kys","kill yourself","you suck","sucks ass","useless bot","stupid bot","dumb bot","garbage bot","trash bot","worst bot","useless ai","stupid ai","dumb ai","this is trash","this is garbage","you're trash","you're garbage","you're useless","you're stupid","you're dumb","you're an idiot","you are trash","you are garbage","you are useless","you are stupid","you are dumb","you are an idiot","nsfw","porn","pornography","xxx","nude","naked","hentai","lewd","explicit","erotic","onlyfans","fetish","gore","self harm","self-harm","suicide method","how to kill","how to make bomb"];
+  const MWB=BAD_WORDS.filter(w=>w.includes(" "));const SWB=BAD_WORDS.filter(w=>!w.includes(" "));
+  function isBad(t){const l=t.toLowerCase();for(const p of MWB){if(l.includes(p))return true;}const tk=new Set(l.match(/[a-z0-9*]+/g)||[]);const cl=new Set(l.replace(/\s+/g,'').match(/[a-z0-9*]+/g)||[]);for(const w of SWB){if(tk.has(w)||cl.has(w))return true;}return false;}
+  const RW=5,RL=3,SL=2,TW=60000;let mH=[],sW=false;
+  function nm(t){return t.toLowerCase().trim().replace(/\s+/g,' ');}
+  function sim(a,b){if(!a||!b)return 0;const L=Math.max(a.length,b.length),S=Math.min(a.length,b.length);if(!L)return 1;let m=0;for(let i=0;i<S;i++)if(a[i]===b[i])m++;return m/L;}
+  function chkR(t){const n=nm(t),now=Date.now();mH=mH.filter(e=>now-e.t<=TW);if(n.length<=2){const sc=mH.filter(e=>e.m===n).length;if(sc>=SL)return{lock:true,reason:'short'};if(!sW){sW=true;return{lock:false,warn:true};}}const ec=mH.filter(e=>e.m===n).length;if(ec>=RL-1)return{lock:true,reason:'exact'};const sc=mH.filter(e=>sim(n,e.m)>=0.85&&n!==e.m).length;if(sc>=2)return{lock:true,reason:'similar'};mH.push({m:n,t:Date.now()});if(mH.length>RW)mH=mH.slice(-RW);return{lock:false};}
+  let history=[],isOpen=false,isLoading=false,chatLocked=false,countdownInt=null;
+  const btn=document.getElementById('mia-widget-btn'),panel=document.getElementById('mia-widget-panel'),msgs=document.getElementById('mia-messages'),input=document.getElementById('mia-input'),sendBtn=document.getElementById('mia-send'),footer=document.getElementById('mia-footer-note');
+  function ucs(){const cw=document.getElementById('mia-captcha-wrap'),ir=document.getElementById('mia-input-row');if(captchaVerified){if(cw)cw.style.display='none';if(ir)ir.style.display='flex';}else{if(cw)cw.style.display='block';if(ir)ir.style.display='none';if(footer)footer.textContent='🔒 Verify to start chatting';}}
+  let sb=null;
+  function sSB(s){if(sb)return;sb=document.createElement('div');sb.style.cssText='background:rgba(251,191,36,0.12);border-bottom:1px solid rgba(251,191,36,0.3);color:#fbbf24;font-size:11px;font-weight:700;text-align:center;padding:6px 10px;flex-shrink:0;';sb.textContent=`🛡️ High load detected — slow mode active (${s}s)`;panel.insertBefore(sb,msgs);}
+  function hSB(){if(sb){sb.remove();sb=null;}}
+  const header=document.getElementById('mia-panel-header');
+  if(header){const nb=document.createElement('button');nb.title='New conversation';nb.textContent='🔄';nb.style.cssText='background:none;border:none;cursor:pointer;font-size:16px;opacity:0.45;transition:opacity .2s;padding:2px 4px;margin-left:auto;flex-shrink:0;';nb.onmouseover=()=>nb.style.opacity='1';nb.onmouseout=()=>nb.style.opacity='0.45';nb.addEventListener('click',resetChat);const dot=document.getElementById('mia-online-dot');if(dot)header.insertBefore(nb,dot);else header.appendChild(nb);}
+  function sC(s){clearInterval(countdownInt);let r=s;function tick(){if(r<=0){clearInterval(countdownInt);cSOL();return;}const m=Math.floor(r/60),se=r%60;if(footer)footer.textContent=m>0?`⏳ Locked ${m}m ${se}s`:`⏳ Locked ${se}s`;r--;}tick();countdownInt=setInterval(tick,1000);}
+  function lC(msg,ui){clearInterval(countdownInt);chatLocked=true;input.disabled=true;sendBtn.disabled=true;input.placeholder='⛔ Locked. Wait for timer.';aM('bot',msg);if(ui>0)sC(ui);else if(footer)footer.textContent='⚠️ Locked · Refresh to unlock';}
+  function uC(){clearInterval(countdownInt);chatLocked=false;input.disabled=false;sendBtn.disabled=false;input.placeholder='Ask me anything...';hSB();if(footer)footer.textContent='MIA AI • Powered by MIA Official';aM('bot','✅ Lock lifted! You can send messages again. Please keep it respectful. 😊');}
+  function resetChat(){if(isLoading)return;clearInterval(countdownInt);history=[];mH=[];sW=false;chatLocked=false;input.disabled=false;sendBtn.disabled=false;input.placeholder='Ask me anything...';hSB();if(footer)footer.textContent='MIA AI • Powered by MIA Official';msgs.innerHTML='';aM('bot','🔄 Chat cleared! Hey! 👋 I\'m <strong>MIA Assistant</strong>. Ask me anything — I\'m here to help!');captchaVerified=false;captchaToken=null;sessionStorage.removeItem('mia_captcha');ucs();if(window.turnstile)window.turnstile.reset();}
+  async function cSOL(){try{const res=await fetch(STATUS_URL,{headers:HEADERS});if(!res.ok)return;const data=await res.json();if(data.slow_mode&&data.slow_until>0)sSB(data.slow_until);else hSB();if(data.locked&&data.unlock_in>0){chatLocked=true;input.disabled=true;sendBtn.disabled=true;input.placeholder='⛔ Locked. Wait for timer.';sC(data.unlock_in);if(isOpen)aM('bot',`⛔ You are still locked — ${data.unlock_in}s remaining. Refreshing won't bypass this.`);}else if(chatLocked&&!data.locked)uC();}catch(e){}}
+  ucs();cSOL();
+  btn.addEventListener('click',()=>{isOpen=!isOpen;panel.classList.toggle('mia-open',isOpen);btn.textContent=isOpen?'✕':'🤖';if(isOpen){sB();cSOL();ucs();}});
+  input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,80)+'px';});
+  input.addEventListener('keydown',(e)=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sM();}});
+  sendBtn.addEventListener('click',sM);
+  async function sM(){if(chatLocked)return;if(!captchaVerified){ucs();return;}const text=input.value.trim();if(!text||isLoading)return;if(text.length>600){lC('⛔ <strong>Chat locked</strong> — message too long. Keep under 600 chars. 🔄',15);return;}if(isBad(text)){lC('⛔ <strong>Chat locked</strong> — swearing, NSFW, and rude behavior are not allowed. 🔄',15);return;}const rep=chkR(text);if(rep.warn){aM('bot','💡 Please ask a proper question! Very short messages may be limited. 😊');input.value='';input.style.height='auto';return;}if(rep.lock){lC(rep.reason==='short'?'⛔ <strong>Chat locked</strong> — please type real questions. 🔄':'⛔ <strong>Chat locked</strong> — stop repeating the same message. 🔄',15);return;}aM('user',text);history.push({role:'user',content:text});input.value='';input.style.height='auto';const typing=aT();sL(true);try{const res=await fetch(API_URL,{method:'POST',headers:HEADERS,body:JSON.stringify({message:text,history:history.slice(0,-1),source:SOURCE,captcha_token:captchaToken||''})});if(!res.ok)throw new Error(`HTTP ${res.status}`);const data=await res.json();if(data.captcha){typing.remove();captchaVerified=false;captchaToken=null;sessionStorage.removeItem('mia_captcha');ucs();if(window.turnstile)window.turnstile.reset();aM('bot','⛔ Human verification failed. Please verify again.');sL(false);return;}if(data.locked){typing.remove();lC(data.response||'⛔ You have been locked. Please wait.',data.unlock_in||15);sL(false);return;}if(data.slow_mode){typing.remove();sSB(data.unlock_in||60);aM('bot',data.response||'🛡️ MIA is under high load. Please wait.');sL(false);return;}if(data.spam){typing.remove();lC(data.response||'⛔ Chat locked. Refresh to unlock.',0);sL(false);return;}const reply=data.response||'Sorry, no response. Please try again.';history.push({role:'assistant',content:reply});typing.remove();aM('bot',reply);}catch(err){typing.remove();aM('bot','⚠️ Something went wrong. Please try again in a moment.');console.error('[MIA Widget]',err);}finally{sL(false);input.focus();}}
+  function aM(role,text){const div=document.createElement('div');div.className=`mia-msg ${role}`;div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/`(.*?)`/g,'<code>$1</code>').replace(/\n/g,'<br>');msgs.appendChild(div);sB();return div;}
+  function aT(){const div=document.createElement('div');div.className='mia-typing';div.innerHTML='<div class="mia-dot"></div><div class="mia-dot"></div><div class="mia-dot"></div>';msgs.appendChild(div);sB();return div;}
+  function sB(){msgs.scrollTop=msgs.scrollHeight;}
+  function sL(s){isLoading=s;input.disabled=s;sendBtn.disabled=s;}
+})();
+</script>
+<!-- Discord Live Widget -->
+<script>
+(async function(){try{const res=await fetch('https://discord.com/api/guilds/1402293305785581721/widget.json');if(!res.ok)return;const data=await res.json();const count=data.presence_count;const badge=document.createElement('a');badge.href='https://discord.gg/tS5WmGEyxN';badge.target='_blank';badge.rel='noopener';badge.style.cssText='position:fixed;bottom:18px;left:50%;z-index:99998;background:linear-gradient(135deg,#5865F2,#4752C4);color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;font-family:"Nunito",sans-serif;font-weight:700;box-shadow:0 3px 10px rgba(88,101,242,0.45);text-decoration:none;display:flex;align-items:center;gap:6px;transition:transform .2s,box-shadow .2s;cursor:pointer;transform:translateX(-60%);white-space:nowrap;';const icon=document.createElement('img');icon.src='mia-icon.png';icon.style.cssText='width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;box-shadow:0 0 4px rgba(255,255,255,0.3);';badge.appendChild(icon);badge.appendChild(document.createTextNode(`🟢 ${count} online · Press to join MIA`));badge.onmouseover=()=>{badge.style.transform='translateX(-60%) scale(1.05)';badge.style.boxShadow='0 5px 16px rgba(88,101,242,0.7)';};badge.onmouseout=()=>{badge.style.transform='translateX(-60%) scale(1)';badge.style.boxShadow='0 3px 10px rgba(88,101,242,0.45)';};document.body.appendChild(badge);}catch(e){}})();
+</script>
+</body>
+</html>
