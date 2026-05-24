@@ -1,5 +1,5 @@
 <html>
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -16,21 +16,30 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);min-height:100vh;overflow-x:hidden;}
+
+body {
+  background:var(--dark);
+  font-family:'Nunito',sans-serif;
+  color:var(--light);
+  min-height:100vh;
+  overflow-x:hidden;
+}
 
 #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
 .ground{position:fixed;bottom:0;left:0;right:0;z-index:1;pointer-events:none;}
 .ground-grass{height:20px;background:repeating-linear-gradient(90deg,#5D9E31 0,#5D9E31 15px,#4A8525 15px,#4A8525 30px,#6BAF38 30px,#6BAF38 45px,#4A8525 45px,#4A8525 60px);border-top:3px solid #8FD44A;}
 .ground-dirt{height:14px;background:repeating-linear-gradient(90deg,#8B6340 0,#8B6340 15px,#7A5530 15px,#7A5530 30px,#9A7050 30px,#9A7050 45px,#7A5530 45px,#7A5530 60px);}
+
 .site-wrap{position:relative;z-index:2;}
 
-/* ── TOP ACTIONS ── */
+/* ── FLOATING GUIDES BUTTON ── */
 .top-actions{position:fixed;top:18px;right:20px;z-index:99997;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 .top-guides-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;font-family:'Press Start 2P',monospace;font-size:7.5px;padding:9px 15px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;border:2px solid #FF8C00;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 16px rgba(255,215,0,0.45);white-space:nowrap;}
 .top-guides-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(255,215,0,0.75);}
 .top-guides-btn span{font-size:14px;}
 
-/* ── HERO ── */
+/* HERO */
 .hero{background:linear-gradient(180deg,#87CEEB 0%,#5BADD4 36%,#5D9E31 36%,#4A7E26 52%,#8B6340 52%,#6B4C2A 100%);padding:36px 20px 24px;text-align:center;border-bottom:6px solid var(--darkgrass);position:relative;overflow:hidden;}
 .hero-clouds{position:absolute;top:0;left:0;right:0;bottom:50%;pointer-events:none;}
 .hcloud{position:absolute;background:rgba(255,255,255,0.86);border-radius:3px;animation:cloudDrift linear infinite;}
@@ -40,119 +49,60 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
 .hero h1{font-family:'Press Start 2P',monospace;font-size:clamp(12px,2.8vw,20px);color:#fff;text-shadow:3px 3px 0 #000,0 0 30px rgba(255,255,255,0.15);line-height:1.7;position:relative;z-index:1;}
 .hero-sub{font-size:13px;color:var(--sand);font-weight:700;margin-top:6px;position:relative;z-index:1;}
 
-/* hero tags */
-.hero-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px;position:relative;z-index:1;}
-.hero-tag{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:3px 11px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.7);white-space:nowrap;}
-.hero-tag.green{border-color:rgba(71,201,107,0.5);color:#47C96B;}
-.hero-tag.yellow{border-color:rgba(255,215,0,0.5);color:#FFD700;}
-.hero-tag.blue{border-color:rgba(88,101,242,0.5);color:#818CF8;}
-
-/* ── STATS BAR ── */
-.stats-bar{display:flex;justify-content:center;gap:0;background:rgba(0,0,0,0.5);border-bottom:1px solid rgba(255,255,255,0.06);flex-wrap:wrap;}
-.stat-item{padding:10px 28px;text-align:center;border-right:1px solid rgba(255,255,255,0.07);flex:1;min-width:100px;}
-.stat-item:last-child{border-right:none;}
-.stat-num{font-family:'Press Start 2P',monospace;font-size:13px;color:var(--accent);display:block;}
-.stat-label{font-size:10px;color:rgba(255,255,255,0.35);margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
-
-/* ── FILTER BAR ── */
-.filter-bar-wrap{position:sticky;top:0;z-index:500;background:rgba(8,14,26,0.95);backdrop-filter:blur(14px);border-bottom:2px solid rgba(93,158,49,0.25);padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
-.filter-search{flex:1;min-width:160px;max-width:300px;position:relative;}
-.filter-search input{width:100%;padding:8px 14px 8px 34px;border-radius:8px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.10);color:#fff;font-size:13px;font-family:'Nunito',sans-serif;outline:none;transition:border-color .2s;}
+/* FILTER BAR */
+.filter-bar-wrap{position:sticky;top:0;z-index:500;background:rgba(8,14,26,0.92);backdrop-filter:blur(14px);border-bottom:2px solid rgba(93,158,49,0.3);padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
+.filter-search{flex:1;min-width:180px;max-width:360px;}
+.filter-search input{width:100%;padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);color:#fff;font-size:13px;font-family:'Nunito',sans-serif;outline:none;}
 .filter-search input:focus{border-color:rgba(155,79,219,0.6);}
-.filter-search input::placeholder{color:rgba(255,255,255,0.25);}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;opacity:0.4;}
-.filter-group{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
-.filter-label{font-size:10px;font-weight:800;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}
-.filter-select select{background:rgba(28,40,58,0.9);border:1.5px solid rgba(255,255,255,0.10);color:#fff;font-size:12px;font-weight:700;padding:7px 28px 7px 12px;border-radius:8px;cursor:pointer;outline:none;font-family:'Nunito',sans-serif;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;transition:border-color .2s;}
+.filter-search input::placeholder{color:rgba(255,255,255,0.3);}
+.filter-select select{background:rgba(36,48,64,0.8);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);color:#fff;font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;outline:none;font-family:'Nunito',sans-serif;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;}
 .filter-select select:hover,.filter-select select:focus{border-color:var(--tip);}
-.filter-select select option{background:#141E2E;color:#fff;}
+.filter-select select option{background:var(--panel);color:#fff;}
+.filter-results{font-size:11px;color:rgba(255,255,255,0.4);white-space:nowrap;margin-left:auto;}
 
-/* filter toggle pills */
-.filter-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.filter-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer;border:1.5px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.45);transition:all .18s;white-space:nowrap;}
-.filter-pill:hover{border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.75);}
-.filter-pill.active{background:rgba(71,201,107,0.15);border-color:rgba(71,201,107,0.5);color:#47C96B;}
-.filter-pill.active-blue{background:rgba(88,101,242,0.15);border-color:rgba(88,101,242,0.5);color:#818CF8;}
-.filter-pill.active-yellow{background:rgba(255,215,0,0.12);border-color:rgba(255,215,0,0.4);color:#FFD700;}
+/* PORTFOLIO WRAP */
+.portfolio-wrap{max-width:1100px;margin:20px auto 40px;padding:0 18px;z-index:2;position:relative;}
 
-.filter-divider{width:1px;height:28px;background:rgba(255,255,255,0.07);flex-shrink:0;}
-.filter-results{font-size:11px;color:rgba(255,255,255,0.3);white-space:nowrap;}
+/* SECTION HEADING */
+.section-title{text-align:center;font-family:'Press Start 2P',monospace;font-size:8px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.section-title::before,.section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
 
-/* ── PORTFOLIO ── */
-.portfolio-wrap{max-width:1120px;margin:24px auto 60px;padding:0 18px;z-index:2;position:relative;}
-.section-title{text-align:center;font-family:'Press Start 2P',monospace;font-size:8px;color:rgba(255,255,255,0.25);letter-spacing:2px;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
-.section-title::before,.section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.07);}
-.packs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;}
+/* PACK CARDS GRID */
+.packs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
 
-/* ── PACK CARD ── */
-.pack-card{background:rgba(18,26,42,0.90);backdrop-filter:blur(12px);border-radius:16px;overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.07);transition:transform 0.26s,box-shadow 0.26s,border-color 0.26s;display:flex;flex-direction:column;position:relative;}
-.pack-card:hover{transform:translateY(-5px);box-shadow:0 14px 42px rgba(0,0,0,0.55),0 0 28px rgba(93,158,49,0.18);border-color:rgba(93,158,49,0.35);}
-.pack-image-wrap{position:relative;overflow:hidden;height:200px;background:rgba(0,0,0,0.4);}
-.pack-image{width:100%;height:100%;object-fit:cover;border-bottom:2px solid rgba(93,158,49,0.15);transition:transform 0.4s;}
-.pack-card:hover .pack-image{transform:scale(1.04);}
-.pack-image-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,rgba(20,30,46,0.9),rgba(10,16,28,0.9));}
-
-/* tech badge on image */
-.pack-tech-badge{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-wrap:wrap;}
-.tech-tag{background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:3px 8px;font-size:9px;font-weight:800;letter-spacing:0.5px;white-space:nowrap;}
-.tech-tag.json{color:#47C96B;border-color:rgba(71,201,107,0.3);}
-.tech-tag.nopng{color:#FFD700;border-color:rgba(255,215,0,0.3);}
-.tech-tag.png{color:#FF9F43;border-color:rgba(255,159,67,0.3);}
-.tech-tag.subpack{color:#818CF8;border-color:rgba(129,140,248,0.3);}
-.tech-tag.nomod{color:#60A5FA;border-color:rgba(96,165,250,0.3);}
-.tech-tag.ui{color:#F472B6;border-color:rgba(244,114,182,0.3);}
-.tech-tag.fog{color:#38BDF8;border-color:rgba(56,189,248,0.3);}
-
-/* new badge */
-.new-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#FF6B35,#E84393);color:#fff;font-family:'Press Start 2P',monospace;font-size:6px;padding:4px 8px;border-radius:5px;letter-spacing:1px;box-shadow:0 2px 10px rgba(232,67,147,0.4);animation:newPulse 2s ease-in-out infinite;}
-@keyframes newPulse{0%,100%{opacity:1}50%{opacity:0.7}}
-
-.pack-body{padding:16px 18px;flex:1;display:flex;flex-direction:column;}
-.pack-name{font-size:15px;font-weight:900;color:#fff;margin-bottom:5px;line-height:1.3;}
-
-/* category + type row */
-.pack-meta-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:9px;}
-.pack-category{display:inline-block;font-size:9px;font-weight:800;padding:2px 8px;border-radius:4px;background:rgba(93,158,49,0.12);color:var(--tip);letter-spacing:1px;text-transform:uppercase;}
-.pack-type{display:inline-block;font-size:9px;font-weight:800;padding:2px 8px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;}
-.pack-type.fog{background:rgba(56,189,248,0.10);color:#38BDF8;}
-.pack-type.ui{background:rgba(244,114,182,0.10);color:#F472B6;}
-.pack-type.shader{background:rgba(167,139,250,0.10);color:#A78BFA;}
-
-.pack-stats{font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:9px;display:flex;gap:12px;flex-wrap:wrap;}
+/* PACK CARD */
+.pack-card{background:rgba(20,30,46,0.85);backdrop-filter:blur(12px);border-radius:16px;overflow:hidden;box-shadow:0 6px 32px rgba(0,0,0,0.4),0 0 20px rgba(93,158,49,0.08);border:1px solid rgba(93,158,49,0.15);transition:transform 0.28s,box-shadow 0.28s;display:flex;flex-direction:column;}
+.pack-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.5),0 0 30px rgba(93,158,49,0.2);border-color:rgba(93,158,49,0.4);}
+.pack-image-wrap{position:relative;overflow:hidden;height:200px;background:rgba(0,0,0,0.3);}
+.pack-image{width:100%;height:100%;object-fit:cover;border-bottom:2px solid rgba(93,158,49,0.2);}
+.pack-image-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,rgba(25,38,55,0.95),rgba(12,20,35,0.95));border-bottom:2px solid rgba(93,158,49,0.2);}
+.pack-body{padding:18px;flex:1;display:flex;flex-direction:column;}
+.pack-name{font-size:16px;font-weight:900;color:#fff;margin-bottom:6px;line-height:1.3;}
+.pack-stats{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:10px;display:flex;gap:14px;flex-wrap:wrap;}
 .pack-stats span{display:flex;align-items:center;gap:4px;}
-.pack-desc{font-size:12.5px;line-height:1.65;color:#B8CCd8;margin-bottom:14px;flex:1;}
+.pack-desc{font-size:12.5px;line-height:1.6;color:#C8D8E0;margin-bottom:14px;flex:1;}
 .pack-desc strong{color:var(--accent);}
-.pack-desc em{color:#47C96B;font-style:normal;}
 
-/* compatibility tags */
-.pack-compat{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
-.compat-tag{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:2px 7px;font-size:9px;color:rgba(255,255,255,0.4);font-weight:700;}
-.compat-tag.ok{border-color:rgba(71,201,107,0.25);color:rgba(71,201,107,0.7);}
-
-/* download buttons */
-.pack-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;}
-.dl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:10px;font-size:12px;font-weight:800;text-decoration:none;transition:transform 0.18s,box-shadow 0.18s;font-family:'Nunito',sans-serif;white-space:nowrap;}
+/* DOWNLOAD BUTTONS */
+.pack-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;}
+.dl-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;font-size:12px;font-weight:800;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;font-family:'Nunito',sans-serif;white-space:nowrap;}
 .dl-btn:hover{transform:translateY(-2px);}
-.dl-cf{background:linear-gradient(135deg,#F16436,#D94020);color:#fff;border:2px solid rgba(255,255,255,0.15);box-shadow:0 3px 12px rgba(241,100,54,0.3);}
-.dl-cf:hover{box-shadow:0 6px 20px rgba(241,100,54,0.55);}
-.dl-mcpedl{background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border:2px solid rgba(255,255,255,0.15);box-shadow:0 3px 12px rgba(76,175,80,0.3);}
-.dl-mcpedl:hover{box-shadow:0 6px 20px rgba(76,175,80,0.55);}
-.dl-icon{font-size:14px;flex-shrink:0;}
+.dl-cf{background:linear-gradient(135deg,#F16436,#E04A28);color:#fff;border:2px solid rgba(255,255,255,0.2);box-shadow:0 3px 14px rgba(241,100,54,0.3);}
+.dl-cf:hover{box-shadow:0 6px 20px rgba(241,100,54,0.5);}
+.dl-mcpedl{background:linear-gradient(135deg,#4CAF50,#388E3C);color:#fff;border:2px solid rgba(255,255,255,0.2);box-shadow:0 3px 14px rgba(76,175,80,0.3);}
+.dl-mcpedl:hover{box-shadow:0 6px 20px rgba(76,175,80,0.5);}
+.dl-icon{font-size:15px;flex-shrink:0;}
 
-/* no results */
-.no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:rgba(255,255,255,0.25);}
-.no-results-icon{font-size:48px;margin-bottom:16px;}
-.no-results h3{font-family:'Press Start 2P',monospace;font-size:10px;margin-bottom:8px;}
-.no-results p{font-size:13px;}
-
-/* ── FOOTER ── */
-.footer{text-align:center;margin-top:24px;padding:0 18px 60px;}
-.footer-inner{background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px 22px;display:inline-block;min-width:260px;box-shadow:0 8px 20px rgba(0,0,0,0.5);}
+/* FOOTER */
+.footer{text-align:center;margin-top:24px;padding:0 18px 30px;}
+.footer-inner{background:rgba(0,0,0,0.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 22px;display:inline-block;min-width:260px;box-shadow:0 8px 20px rgba(0,0,0,0.5);}
 .footer-logo{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--mia);letter-spacing:2px;margin-bottom:6px;text-shadow:0 0 12px rgba(93,158,49,0.5);}
 .footer-sub{font-size:10px;color:#7A8A9A;letter-spacing:1px;}
 .footer-sub span{color:#FF6B6B;}
 
-/* ── MIA WIDGET ── */
+@media(max-width:700px){.packs-grid{grid-template-columns:1fr;}.top-actions{top:10px;right:10px;gap:6px;}.top-guides-btn{font-size:6.5px;padding:7px 11px;}.filter-bar-wrap{gap:8px;padding:8px 12px;}}
+
+/* ── MIA WIDGET CSS ── */
 #mia-widget-btn{position:fixed;bottom:24px;right:24px;z-index:99999;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#9B4FDB,#5865F2);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(155,79,219,0.5);display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;transition:transform .2s,box-shadow .2s;animation:mia-pulse-ring 2.5s ease-in-out infinite;}
 @keyframes mia-pulse-ring{0%,100%{box-shadow:0 4px 20px rgba(155,79,219,0.5);}50%{box-shadow:0 4px 32px rgba(155,79,219,0.9),0 0 0 8px rgba(155,79,219,0.15);}}
 #mia-widget-btn:hover{transform:scale(1.1);}
@@ -190,16 +140,6 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
 #mia-send:hover:not(:disabled){transform:scale(1.08);}
 #mia-send:disabled{opacity:0.4;cursor:not-allowed;}
 #mia-footer-note{text-align:center;font-size:10px;color:rgba(255,255,255,0.2);padding:4px 0 8px;font-family:'Nunito',sans-serif;flex-shrink:0;}
-
-@media(max-width:700px){
-  .packs-grid{grid-template-columns:1fr;}
-  .top-actions{top:10px;right:10px;gap:6px;}
-  .top-guides-btn{font-size:6.5px;padding:7px 11px;}
-  .filter-bar-wrap{gap:6px;padding:8px 12px;}
-  .filter-pills{gap:4px;}
-  .filter-pill{font-size:10px;padding:4px 9px;}
-  .stats-bar{display:none;}
-}
 </style>
 </head>
 <body>
@@ -209,7 +149,7 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
 
 <div class="site-wrap">
 
-<!-- TOP ACTIONS -->
+<!-- FLOATING GUIDES BUTTON -->
 <div class="top-actions">
   <a href="https://xameraman.github.io/All-Mia-Guides/" class="top-guides-btn"><span>📚</span> GUIDES</a>
 </div>
@@ -224,110 +164,47 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
   </div>
   <div class="badge">🎨 TEXTURE PACKS</div>
   <h1>XAMERAMAN5022<br>PORTFOLIO</h1>
-  <p class="hero-sub">Minecraft Bedrock Edition · Resource Packs · Always Free</p>
-  <div class="hero-tags">
-    <span class="hero-tag green">✓ Fog Overrides via JSON</span>
-    <span class="hero-tag green">✓ UI Overrides via JSON / PNG</span>
-    <span class="hero-tag yellow">✓ Subpacks Slider Support</span>
-    <span class="hero-tag blue">✓ No Behavior Packs</span>
-    <span class="hero-tag blue">✓ No Mods Required</span>
-    <span class="hero-tag">✓ Compatible with Other Packs</span>
-  </div>
-</div>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-item"><span class="stat-num" id="stat-total">4</span><span class="stat-label">Packs Released</span></div>
-  <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Free Forever</span></div>
-  <div class="stat-item"><span class="stat-num">1.16+</span><span class="stat-label">Min. Bedrock Version</span></div>
-  <div class="stat-item"><span class="stat-num">0</span><span class="stat-label">Mods Required</span></div>
+  <p class="hero-sub">Minecraft Bedrock · Pure JSON · No Mods · Always Free</p>
 </div>
 
 <!-- FILTER BAR -->
 <div class="filter-bar-wrap" id="filterBar">
   <div class="filter-search">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="Search packs...">
+    <input type="text" id="searchInput" placeholder="🔍 Search packs...">
   </div>
-
-  <div class="filter-divider"></div>
-
-  <!-- Technique filter pills -->
-  <div class="filter-group">
-    <span class="filter-label">Tech:</span>
-    <div class="filter-pills">
-      <span class="filter-pill active" data-tech="all">All</span>
-      <span class="filter-pill" data-tech="json-only">Pure JSON</span>
-      <span class="filter-pill" data-tech="uses-png">Uses PNG</span>
-      <span class="filter-pill" data-tech="subpack">Has Subpacks</span>
-    </div>
-  </div>
-
-  <div class="filter-divider"></div>
-
-  <!-- Type filter pills -->
-  <div class="filter-group">
-    <span class="filter-label">Type:</span>
-    <div class="filter-pills">
-      <span class="filter-pill active" data-type="all">All</span>
-      <span class="filter-pill" data-type="fog">Fog</span>
-      <span class="filter-pill" data-type="ui">UI / HUD</span>
-    </div>
-  </div>
-
-  <div class="filter-divider"></div>
-
-  <!-- Sort -->
   <div class="filter-select">
-    <select id="sortFilter">
-      <option value="newest">🕒 Newest</option>
-      <option value="oldest">📜 Oldest</option>
+    <select id="categoryFilter">
+      <option value="all">📂 All Categories</option>
+      <option value="textures">🎨 Textures</option>
+      <option value="addons">📦 Add‑ons</option>
+      <option value="worlds">🌍 Worlds</option>
+      <option value="skins">🧑 Skins</option>
+      <option value="other">🔧 Other</option>
     </select>
   </div>
-
+  <div class="filter-select">
+    <select id="sortFilter">
+      <option value="newest">🕒 Newest First</option>
+      <option value="oldest">📜 Oldest First</option>
+    </select>
+  </div>
   <div class="filter-results" id="filterResults"></div>
 </div>
 
-<!-- PORTFOLIO GRID -->
+<!-- PORTFOLIO -->
 <div class="portfolio-wrap">
-  <div class="section-title">━━ RELEASED PACKS ━━</div>
+  <div class="section-title">━━ FEATURED PACKS ━━</div>
   <div class="packs-grid" id="packsGrid">
 
-    <!-- ── PACK 1: FogBreaker Bundle ── -->
-    <div class="pack-card"
-      data-name="FogBreaker Bundle"
-      data-desc="3 modes slider water lava fog subpacks fire resistance ocean"
-      data-date="2026-05-23"
-      data-tech="json-only subpack"
-      data-type="fog">
+    <!-- PACK 1: FogBreaker Bundle -->
+    <div class="pack-card" data-category="textures" data-date="2026-05-23" data-name="FogBreaker Bundle" data-desc="3 modes slider water lava fog subpacks fire resistance ocean">
       <div class="pack-image-wrap">
         <img src="https://media.forgecdn.net/attachments/1694/977/1000000547-jpg.jpg" alt="FogBreaker Bundle" class="pack-image" onerror="this.parentElement.innerHTML='<div class=\'pack-image-placeholder\'>🌫️</div>'">
-        <div class="pack-tech-badge">
-          <span class="tech-tag json">Pure JSON</span>
-          <span class="tech-tag nopng">No PNG</span>
-          <span class="tech-tag subpack">3 Subpacks</span>
-          <span class="tech-tag fog">Fog</span>
-        </div>
-        <div class="new-badge">NEW</div>
       </div>
       <div class="pack-body">
         <div class="pack-name">🌫️ FogBreaker Bundle</div>
-        <div class="pack-meta-row">
-          <span class="pack-category">Textures</span>
-          <span class="pack-type fog">Fog Override</span>
-        </div>
-        <div class="pack-stats">
-          <span>📅 May 23, 2026</span>
-          <span>⚙️ biomes_client.json + fogs/</span>
-        </div>
-        <div class="pack-desc">
-          <strong>3 selectable modes</strong> via the in-game ⚙ gear slider. <em>Water Only</em> for clear ocean surface & underwater vision. <em>Lava X-Ray</em> — drink a <strong>Fire Resistance potion</strong> in Survival to see through lava. <em>Both</em> for everything at once. Works in Overworld &amp; Nether.
-        </div>
-        <div class="pack-compat">
-          <span class="compat-tag ok">✓ Bedrock 1.20+</span>
-          <span class="compat-tag ok">✓ Survival Balanced</span>
-          <span class="compat-tag ok">✓ Stackable</span>
-        </div>
+        <div class="pack-stats"><span>📅 May 23, 2026</span><span>⚡ Pure JSON</span><span>🎚️ 3 Subpacks</span></div>
+        <div class="pack-desc">3 modes via in‑game slider. <strong>Water Only</strong> for clear oceans, <strong>Lava X‑Ray</strong> with Fire Resistance potion, or <strong>Both</strong>. Zero PNGs, zero mods — pure JSON only.</div>
         <div class="pack-links">
           <a href="https://www.curseforge.com/minecraft-bedrock/texture-packs/fogbreaker-bundle" target="_blank" rel="noopener" class="dl-btn dl-cf"><span class="dl-icon">🔥</span> CurseForge</a>
           <a href="https://mcpedl.com/fogbreaker-bundle/" target="_blank" rel="noopener" class="dl-btn dl-mcpedl"><span class="dl-icon">📱</span> MCPEDL</a>
@@ -335,40 +212,15 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
       </div>
     </div>
 
-    <!-- ── PACK 2: No Pumpkin Blur ── -->
-    <div class="pack-card"
-      data-name="Zero No Pumpkin Blur"
-      data-desc="pumpkin overlay blur helmet hud screen remove no overlay"
-      data-date="2026-05-24"
-      data-tech="uses-png"
-      data-type="ui">
+    <!-- PACK 2: Zero - No Pumpkin Blur (now with real image) -->
+    <div class="pack-card" data-category="textures" data-date="2026-05-24" data-name="Zero No Pumpkin Blur" data-desc="pumpkin overlay blur helmet hud screen remove">
       <div class="pack-image-wrap">
-        <div class="pack-image-placeholder">🎃</div>
-        <div class="pack-tech-badge">
-          <span class="tech-tag png">PNG Override</span>
-          <span class="tech-tag ui">UI / HUD</span>
-          <span class="tech-tag nomod">No Mods</span>
-        </div>
-        <div class="new-badge">NEW</div>
+        <img src="https://media.forgecdn.net/attachments/1696/674/1000000619-png.png" alt="Zero - No Pumpkin Blur" class="pack-image" onerror="this.parentElement.innerHTML='<div class=\'pack-image-placeholder\'>🎃</div>'">
       </div>
       <div class="pack-body">
         <div class="pack-name">🎃 Zero — No Pumpkin Blur</div>
-        <div class="pack-meta-row">
-          <span class="pack-category">Textures</span>
-          <span class="pack-type ui">UI Override</span>
-        </div>
-        <div class="pack-stats">
-          <span>📅 May 24, 2026</span>
-          <span>⚙️ textures/misc/pumpkinblur.png</span>
-        </div>
-        <div class="pack-desc">
-          Completely removes the <strong>pumpkin screen overlay</strong> when wearing a carved pumpkin as a helmet. Full clear view — no blur, no obstruction. Other players still see the pumpkin on your head normally. Zero gameplay changes.
-        </div>
-        <div class="pack-compat">
-          <span class="compat-tag ok">✓ Bedrock 1.16+</span>
-          <span class="compat-tag ok">✓ Lightweight</span>
-          <span class="compat-tag ok">✓ Stackable</span>
-        </div>
+        <div class="pack-stats"><span>📅 May 24, 2026</span><span>🖼️ PNG Override</span><span>⚡ Lightweight</span></div>
+        <div class="pack-desc">Completely removes the <strong>pumpkin screen overlay</strong> when wearing a carved pumpkin helmet. Full clear view — no blur, no obstruction. Other players still see the pumpkin normally.</div>
         <div class="pack-links">
           <a href="https://www.curseforge.com/minecraft-bedrock/texture-packs/zero-no-pumpkin-blur" target="_blank" rel="noopener" class="dl-btn dl-cf"><span class="dl-icon">🔥</span> CurseForge</a>
           <a href="https://mcpedl.com/zero-no-pumpkin-blur/" target="_blank" rel="noopener" class="dl-btn dl-mcpedl"><span class="dl-icon">📱</span> MCPEDL</a>
@@ -376,39 +228,15 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
       </div>
     </div>
 
-    <!-- ── PACK 3: No Lava Fog ── -->
-    <div class="pack-card"
-      data-name="No Lava Fog Fire Resistance Edition"
-      data-desc="lava fog fire resistance ancient debris nether xray"
-      data-date="2026-05-22"
-      data-tech="json-only"
-      data-type="fog">
+    <!-- PACK 3: No Lava Fog -->
+    <div class="pack-card" data-category="textures" data-date="2026-05-22" data-name="No Lava Fog" data-desc="lava fog fire resistance ancient debris nether">
       <div class="pack-image-wrap">
         <img src="https://media.forgecdn.net/attachments/1692/817/1000000530-jpg.jpg" alt="No Lava Fog" class="pack-image" onerror="this.parentElement.innerHTML='<div class=\'pack-image-placeholder\'>🔥</div>'">
-        <div class="pack-tech-badge">
-          <span class="tech-tag json">Pure JSON</span>
-          <span class="tech-tag nopng">No PNG</span>
-          <span class="tech-tag fog">Fog</span>
-        </div>
       </div>
       <div class="pack-body">
         <div class="pack-name">🔥 No Lava Fog: Fire Resistance Edition</div>
-        <div class="pack-meta-row">
-          <span class="pack-category">Textures</span>
-          <span class="pack-type fog">Fog Override</span>
-        </div>
-        <div class="pack-stats">
-          <span>📅 May 22, 2026</span>
-          <span>⚙️ biomes_client.json + fogs/</span>
-        </div>
-        <div class="pack-desc">
-          Removes the blinding orange fog when submerged in lava — requires a <strong>Fire Resistance potion</strong> to activate in Survival. Spot <strong>Ancient Debris</strong>, navigate lava lakes, and traverse the Nether with clear vision.
-        </div>
-        <div class="pack-compat">
-          <span class="compat-tag ok">✓ Bedrock 1.16+</span>
-          <span class="compat-tag ok">✓ Survival Balanced</span>
-          <span class="compat-tag ok">✓ Stackable</span>
-        </div>
+        <div class="pack-stats"><span>📅 May 22, 2026</span><span>⚡ Pure JSON</span></div>
+        <div class="pack-desc">Removes blinding orange fog when submerged in lava — spot <strong>Ancient Debris</strong>, map lava lakes, and traverse the Nether with crystal‑clear vision. Works with Fire Resistance potion.</div>
         <div class="pack-links">
           <a href="https://www.curseforge.com/minecraft-bedrock/texture-packs/no-lava-fog-fire-resistance-edition" target="_blank" rel="noopener" class="dl-btn dl-cf"><span class="dl-icon">🔥</span> CurseForge</a>
           <a href="https://mcpedl.com/no-lava-fog-fire-resistance-edition/" target="_blank" rel="noopener" class="dl-btn dl-mcpedl"><span class="dl-icon">📱</span> MCPEDL</a>
@@ -416,39 +244,15 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
       </div>
     </div>
 
-    <!-- ── PACK 4: Balanced Clear Ocean ── -->
-    <div class="pack-card"
-      data-name="Balanced Clear Ocean"
-      data-desc="ocean water surface clarity underwater fog tropical biomes"
-      data-date="2026-05-21"
-      data-tech="json-only"
-      data-type="fog">
+    <!-- PACK 4: Balanced Clear Ocean -->
+    <div class="pack-card" data-category="textures" data-date="2026-05-21" data-name="Balanced Clear Ocean" data-desc="ocean water surface clarity underwater fog tropical">
       <div class="pack-image-wrap">
         <img src="https://media.forgecdn.net/attachments/1691/958/1000000494-jpg.jpg" alt="Balanced Clear Ocean" class="pack-image" onerror="this.parentElement.innerHTML='<div class=\'pack-image-placeholder\'>🌊</div>'">
-        <div class="pack-tech-badge">
-          <span class="tech-tag json">Pure JSON</span>
-          <span class="tech-tag nopng">No PNG</span>
-          <span class="tech-tag fog">Fog</span>
-        </div>
       </div>
       <div class="pack-body">
         <div class="pack-name">🌊 Balanced Clear Ocean</div>
-        <div class="pack-meta-row">
-          <span class="pack-category">Textures</span>
-          <span class="pack-type fog">Fog Override</span>
-        </div>
-        <div class="pack-stats">
-          <span>📅 May 21, 2026</span>
-          <span>⚙️ biomes_client.json + fogs/</span>
-        </div>
-        <div class="pack-desc">
-          <strong>60% surface transparency</strong> — see the ocean floor clearly from your boat. Extended underwater fog for realistic depth haze. Vibrant tropical lighting across all ocean biomes. No texture replacements — pure fog override only.
-        </div>
-        <div class="pack-compat">
-          <span class="compat-tag ok">✓ Bedrock 1.16+</span>
-          <span class="compat-tag ok">✓ All Ocean Biomes</span>
-          <span class="compat-tag ok">✓ Stackable</span>
-        </div>
+        <div class="pack-stats"><span>📅 May 21, 2026</span><span>⚡ Pure JSON</span></div>
+        <div class="pack-desc"><strong>60% surface clarity</strong> — see the ocean floor from your boat. Pushed‑back underwater fog with realistic 20% depth haze. Vibrant tropical lighting replaces gloomy deep‑sea gray.</div>
         <div class="pack-links">
           <a href="https://www.curseforge.com/minecraft-bedrock/texture-packs/balanced-clear-ocean" target="_blank" rel="noopener" class="dl-btn dl-cf"><span class="dl-icon">🔥</span> CurseForge</a>
           <a href="https://mcpedl.com/balanced-clear-ocean/" target="_blank" rel="noopener" class="dl-btn dl-mcpedl"><span class="dl-icon">📱</span> MCPEDL</a>
@@ -457,9 +261,8 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
     </div>
 
   </div><!-- /packs-grid -->
-</div>
+</div><!-- /portfolio-wrap -->
 
-<!-- FOOTER -->
 <div class="footer">
   <div class="footer-inner">
     <div class="footer-logo">
@@ -470,9 +273,9 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
   </div>
 </div>
 
-</div><!-- /site-wrap -->
+</div>
 
-<!-- MIA WIDGET -->
+<!-- ══════════════════ MIA ASSISTANT WIDGET ══════════════════ -->
 <button id="mia-widget-btn" title="Chat with MIA Assistant">🤖</button>
 <div id="mia-widget-panel">
   <div id="mia-panel-header">
@@ -497,109 +300,68 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
   <div id="mia-footer-note">MIA Assistance</div>
 </div>
 
-<!-- ANIMATED BG -->
 <script>
+/* ─── Animated canvas background ─── */
 (function(){
-  const c=document.getElementById('bg-canvas'),x=c.getContext('2d');
-  let W,H;function R(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}R();window.addEventListener('resize',R);
+  const c=document.getElementById('bg-canvas'),x=c.getContext('2d');let W,H;
+  function R(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}R();window.addEventListener('resize',R);
   const S=[];for(let i=0;i<160;i++)S.push({x:Math.random(),y:Math.random()*.85,r:Math.random()*1.4+.3,a:Math.random(),sp:.003+Math.random()*.006,ph:Math.random()*Math.PI*2});
   const OC=['rgba(93,158,49,','rgba(71,201,107,','rgba(198,120,255,','rgba(255,215,0,','rgba(88,101,242,'];
   const O=[];for(let i=0;i<7;i++)O.push({x:Math.random(),y:Math.random(),r:60+Math.random()*120,co:OC[Math.floor(Math.random()*OC.length)],vx:(Math.random()-.5)*.00015,vy:(Math.random()-.5)*.00015,a:.04+Math.random()*.05});
-  const PC=['#5D9E31','#7DC940','#FFD700','#47C96B','#C678FF','#fff','#5865F2'];
-  const P=[];function sp(){return{x:Math.random(),y:1.05,s:3+Math.random()*5,co:PC[Math.floor(Math.random()*7)],vx:(Math.random()-.5)*.0004,vy:-(.0004+Math.random()*.0008),a:0,mA:.4+Math.random()*.35,ro:Math.random()*360,rv:(Math.random()-.5)*1.2};}
-  for(let i=0;i<28;i++)P.push(sp());
-  let SH=[];setInterval(()=>SH.push({x:Math.random()*.6,y:Math.random()*.4,len:80+Math.random()*140,sp:.006+Math.random()*.008,pro:0,a:.7+Math.random()*.3,ang:Math.PI/5+(Math.random()-.5)*.3}),3200);
-  let t=0;
-  function D(){
-    x.clearRect(0,0,W,H);
-    const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#06091A');g.addColorStop(.5,'#0A1628');g.addColorStop(1,'#0D2040');
-    x.fillStyle=g;x.fillRect(0,0,W,H);
-    for(const o of O){o.x+=o.vx;o.y+=o.vy;if(o.x<-.1)o.x=1.1;if(o.x>1.1)o.x=-.1;if(o.y<-.1)o.y=1.1;if(o.y>1.1)o.y=-.1;
-      const rg=x.createRadialGradient(o.x*W,o.y*H,0,o.x*W,o.y*H,o.r);rg.addColorStop(0,o.co+o.a+')');rg.addColorStop(1,o.co+'0)');
-      x.fillStyle=rg;x.beginPath();x.arc(o.x*W,o.y*H,o.r,0,Math.PI*2);x.fill();}
-    for(const s of S){const p=.4+.6*(.5+.5*Math.sin(t*s.sp+s.ph));x.globalAlpha=s.a*p;x.fillStyle='#fff';x.beginPath();x.arc(s.x*W,s.y*H,s.r*(.8+.3*p),0,Math.PI*2);x.fill();}x.globalAlpha=1;
-    SH=SH.filter(s=>s.pro<1.3);
+  const PC=['#5D9E31','#7DC940','#FFD700','#47C96B','#C678FF','#fff','#5865F2'];const P=[];
+  function sp(){return{x:Math.random(),y:1.05,s:3+Math.random()*5,co:PC[Math.floor(Math.random()*7)],vx:(Math.random()-.5)*.0004,vy:-(.0004+Math.random()*.0008),a:0,mA:.4+Math.random()*.35,ro:Math.random()*360,rv:(Math.random()-.5)*1.2};}
+  for(let i=0;i<28;i++)P.push(sp());let SH=[];
+  setInterval(()=>SH.push({x:Math.random()*.6,y:Math.random()*.4,len:80+Math.random()*140,sp:.006+Math.random()*.008,pro:0,a:.7+Math.random()*.3,ang:Math.PI/5+(Math.random()-.5)*.3}),3200);let t=0;
+  function D(){x.clearRect(0,0,W,H);const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#06091A');g.addColorStop(.5,'#0A1628');g.addColorStop(1,'#0D2040');x.fillStyle=g;x.fillRect(0,0,W,H);
+    for(const o of O){o.x+=o.vx;o.y+=o.vy;if(o.x<-.1)o.x=1.1;if(o.x>1.1)o.x=-.1;if(o.y<-.1)o.y=1.1;if(o.y>1.1)o.y=-.1;const rg=x.createRadialGradient(o.x*W,o.y*H,0,o.x*W,o.y*H,o.r);rg.addColorStop(0,o.co+o.a+')');rg.addColorStop(1,o.co+'0)');x.fillStyle=rg;x.beginPath();x.arc(o.x*W,o.y*H,o.r,0,Math.PI*2);x.fill();}
+    for(const s of S){const p=.4+.6*(.5+.5*Math.sin(t*s.sp+s.ph));x.globalAlpha=s.a*p;x.fillStyle='#fff';x.beginPath();x.arc(s.x*W,s.y*H,s.r*(.8+.3*p),0,Math.PI*2);x.fill();}x.globalAlpha=1;SH=SH.filter(s=>s.pro<1.3);
     for(const s of SH){s.pro+=s.sp;const sx=s.x*W+Math.cos(s.ang)*s.pro*s.len*3,sy=s.y*H+Math.sin(s.ang)*s.pro*s.len*3;const ex=sx-Math.cos(s.ang)*s.len,ey=sy-Math.sin(s.ang)*s.len;const f=s.pro>.8?1-(s.pro-.8)/.5:1;const lg=x.createLinearGradient(ex,ey,sx,sy);lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(1,`rgba(255,255,255,${s.a*f})`);x.strokeStyle=lg;x.lineWidth=1.5;x.globalAlpha=f;x.beginPath();x.moveTo(ex,ey);x.lineTo(sx,sy);x.stroke();x.globalAlpha=1;}
-    for(let i=0;i<P.length;i++){const p=P[i];p.x+=p.vx;p.y+=p.vy;p.ro+=p.rv;p.a=Math.min(p.mA,p.a+.008);if(p.y<-.05){P[i]=sp();continue;}x.save();x.translate(p.x*W,p.y*H);x.rotate(p.ro*Math.PI/180);x.globalAlpha=p.a;x.fillStyle=p.co;x.fillRect(-p.s/2,-p.s/2,p.s,p.s);x.restore();}x.globalAlpha=1;t+=.6;requestAnimationFrame(D);}
-  D();
+    for(let i=0;i<P.length;i++){const p=P[i];p.x+=p.vx;p.y+=p.vy;p.ro+=p.rv;p.a=Math.min(p.mA,p.a+.008);if(p.y<-.05){P[i]=sp();continue;}x.save();x.translate(p.x*W,p.y*H);x.rotate(p.ro*Math.PI/180);x.globalAlpha=p.a;x.fillStyle=p.co;x.fillRect(-p.s/2,-p.s/2,p.s,p.s);x.restore();}x.globalAlpha=1;t+=.6;requestAnimationFrame(D);}D();
 })();
 </script>
 
-<!-- FILTER LOGIC -->
+<!-- FILTER & SORT LOGIC -->
 <script>
-(function(){
+(function() {
   const searchInput=document.getElementById('searchInput');
+  const categoryFilter=document.getElementById('categoryFilter');
   const sortFilter=document.getElementById('sortFilter');
   const filterResults=document.getElementById('filterResults');
   const grid=document.getElementById('packsGrid');
-  const statTotal=document.getElementById('stat-total');
   const cards=Array.from(grid.querySelectorAll('.pack-card'));
-
-  // update total count
-  statTotal.textContent=cards.length;
-
-  let activeTech='all', activeType='all';
-
-  // pill click handlers
-  document.querySelectorAll('.filter-pill[data-tech]').forEach(pill=>{
-    pill.addEventListener('click',()=>{
-      document.querySelectorAll('.filter-pill[data-tech]').forEach(p=>p.classList.remove('active','active-blue','active-yellow'));
-      pill.classList.add('active');
-      activeTech=pill.dataset.tech;
-      applyFilters();
-    });
-  });
-  document.querySelectorAll('.filter-pill[data-type]').forEach(pill=>{
-    pill.addEventListener('click',()=>{
-      document.querySelectorAll('.filter-pill[data-type]').forEach(p=>p.classList.remove('active','active-blue','active-yellow'));
-      pill.classList.add('active');
-      activeType=pill.dataset.type;
-      applyFilters();
-    });
-  });
 
   function applyFilters(){
     const search=searchInput.value.toLowerCase().trim();
+    const category=categoryFilter.value;
     const sort=sortFilter.value;
-
     let filtered=cards.filter(card=>{
+      const cat=card.dataset.category;
       const name=(card.dataset.name||'').toLowerCase();
       const desc=(card.dataset.desc||'').toLowerCase();
-      const tech=(card.dataset.tech||'');
-      const type=(card.dataset.type||'');
-
+      const matchCat=category==='all'||cat===category;
       const matchSearch=!search||name.includes(search)||desc.includes(search);
-      const matchTech=activeTech==='all'||tech.includes(activeTech);
-      const matchType=activeType==='all'||type.includes(activeType);
-      return matchSearch&&matchTech&&matchType;
+      return matchCat&&matchSearch;
     });
-
-    filtered.sort((a,b)=>sort==='newest'
-      ?b.dataset.date.localeCompare(a.dataset.date)
-      :a.dataset.date.localeCompare(b.dataset.date));
-
+    if(sort==='newest'){filtered.sort((a,b)=>b.dataset.date.localeCompare(a.dataset.date));}
+    else{filtered.sort((a,b)=>a.dataset.date.localeCompare(b.dataset.date));}
     while(grid.firstChild)grid.removeChild(grid.firstChild);
-
     if(filtered.length===0){
       const nr=document.createElement('div');
-      nr.className='no-results';
-      nr.innerHTML='<div class="no-results-icon">🔍</div><h3>No packs found</h3><p>Try a different search or filter.</p>';
+      nr.className='no-results';nr.style.cssText='grid-column:1/-1;text-align:center;padding:60px 20px;color:rgba(255,255,255,0.25);';
+      nr.innerHTML='<div style="font-size:48px;margin-bottom:16px;">🔍</div><h3 style="font-family:\'Press Start 2P\',monospace;font-size:10px;margin-bottom:8px;">No packs found</h3><p style="font-size:13px;">Try a different search or filter.</p>';
       grid.appendChild(nr);
-    } else {
-      filtered.forEach(card=>grid.appendChild(card));
-    }
-
+    }else{filtered.forEach(card=>grid.appendChild(card));}
     const total=cards.length,vis=filtered.length;
-    filterResults.textContent=vis===total?`All ${total} packs`:`${vis} of ${total}`;
+    filterResults.textContent=vis===total?`Showing all ${total} packs`:`Showing ${vis} of ${total} packs`;
   }
-
   searchInput.addEventListener('input',applyFilters);
+  categoryFilter.addEventListener('change',applyFilters);
   sortFilter.addEventListener('change',applyFilters);
   applyFilters();
 })();
 </script>
 
-<!-- MIA WIDGET JS (unchanged from original) -->
+<!-- ══════════════════ MIA WIDGET JS ══════════════════ -->
 <script>
 (function(){
   const API_URL='https://xameraman5022-mia-assistant.hf.space/chat';
@@ -641,11 +403,10 @@ body{background:var(--dark);font-family:'Nunito',sans-serif;color:var(--light);m
   function aM(role,text){const div=document.createElement('div');div.className=`mia-msg ${role}`;div.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/`(.*?)`/g,'<code>$1</code>').replace(/\n/g,'<br>');msgs.appendChild(div);sB();return div;}
   function aT(){const div=document.createElement('div');div.className='mia-typing';div.innerHTML='<div class="mia-dot"></div><div class="mia-dot"></div><div class="mia-dot"></div>';msgs.appendChild(div);sB();return div;}
   function sB(){msgs.scrollTop=msgs.scrollHeight;}
-  function sL(s){isLoading=s;input.disabled=s||chatLocked;sendBtn.disabled=s||chatLocked;}
+  function sL(s){isLoading=s;input.disabled=s;sendBtn.disabled=s;}
 })();
 </script>
-
-<!-- DISCORD BADGE -->
+<!-- Discord Live Widget -->
 <script>
 (async function(){try{const res=await fetch('https://discord.com/api/guilds/1402293305785581721/widget.json');if(!res.ok)return;const data=await res.json();const count=data.presence_count;const badge=document.createElement('a');badge.href='https://discord.gg/tS5WmGEyxN';badge.target='_blank';badge.rel='noopener';badge.style.cssText='position:fixed;bottom:18px;left:50%;z-index:99998;background:linear-gradient(135deg,#5865F2,#4752C4);color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;font-family:"Nunito",sans-serif;font-weight:700;box-shadow:0 3px 10px rgba(88,101,242,0.45);text-decoration:none;display:flex;align-items:center;gap:6px;transition:transform .2s,box-shadow .2s;cursor:pointer;transform:translateX(-60%);white-space:nowrap;';const icon=document.createElement('img');icon.src='mia-icon.png';icon.style.cssText='width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;box-shadow:0 0 4px rgba(255,255,255,0.3);';badge.appendChild(icon);badge.appendChild(document.createTextNode(`🟢 ${count} online · Press to join MIA`));badge.onmouseover=()=>{badge.style.transform='translateX(-60%) scale(1.05)';badge.style.boxShadow='0 5px 16px rgba(88,101,242,0.7)';};badge.onmouseout=()=>{badge.style.transform='translateX(-60%) scale(1)';badge.style.boxShadow='0 3px 10px rgba(88,101,242,0.45)';};document.body.appendChild(badge);}catch(e){}})();
 </script>
